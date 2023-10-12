@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="{{ url_for('static', filename='js/index.js') }}" defer></script>
+    <script src="../static/js/profile.js"></script>
+    <title>Главная</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                {% if(session.get('auth'))%}
+                {% for item in menuauth %}
+                <li><a href="{{item['url']}}">{{item['name']}}</a></li>
+                {% endfor %}
+
+                {% else %}
+                {% for item in menu %}
+                <li><a href="{{item['url']}}">{{item['name']}}</a></li>
+                {% endfor %}
+                {% endif %}
+            </ul>
+
+        </nav>
+        <div>
+<!--            <p>{{session.get('auth')}}</p>-->
+<!--            <p>{{session.get('user')}}</p>-->
+<!--                {% if(session.get('auth'))%}-->
+<!--                <a href="/logout">Выход</a>-->
+<!--                <a href="/profile">{{session.get('user')}}</a>-->
+<!--                {% endif %}-->
+        </div>
+    </header>
+    <main>
+        <form action="/linksChange" method="post">
+            <label for="link">Введите ссылку</label>
+            <input type="text" name="link" id="link">
+            <label for="link_type">Тип сокращенной ссылки</label>
+            <select name="link_type" id="link_type">
+                {% for item in linkTypes %}
+                {% if((session.get('auth')) or item[1] == "Публичная")%}
+                <option value="{{item[0]}}">{{item[1]}}</option>
+                {% endif %}
+                {% endfor %}
+            </select>
+            <label for="nicknameCH">Нужен человеко читаемый псевдоним?</label>
+            <input type="checkbox"  name="nicknameCH" id="nicknameCH">
+            <label for="nickname">Псевдоним</label>
+            <input type="text" disabled name="nickname" id="nickname">
+            <button>Получить сокращенную ссылку</button>
+        </form>
+        <div>
+            <div class="register">
+                {% for cat, message in get_flashed_messages(True) %}
+                {% if(cat == "error")%}
+                <p>Ошибка: {{message}}</p>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <h2>Сокращенная ссылка</h2>
+            {% for cat, message in get_flashed_messages(True) %}
+            {% if(cat == "url")%}
+            <p>{{message}}</p>
+            {% endif %}
+            {% endfor %}
+        </div>
+
+    </main>
+
+</body>
+</html>

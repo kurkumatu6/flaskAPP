@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="{{ url_for('static', filename='js/profile.js') }}" defer></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/profile.css') }}" />
+    <title>Главная</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                {% if(session.get('auth'))%}
+                {% for item in menuauth %}
+                <li><a href="{{item['url']}}">{{item['name']}}</a></li>
+                {% endfor %}
+
+                {% else %}
+                {% for item in menu %}
+                <li><a href="{{item['url']}}">{{item['name']}}</a></li>
+                {% endfor %}
+                {% endif %}
+            </ul>
+
+        </nav>
+        <div>
+<!--            <p>{{session.get('auth')}}</p>-->
+<!--            <p>{{session.get('user')}}</p>-->
+<!--                {% if(session.get('auth'))%}-->
+<!--                <a href="/logout">Выход</a>-->
+<!--                <a href="/profile">{{session.get('user')}}</a>-->
+<!--                {% endif %}-->
+        </div>
+    </header>
+    <main>
+        <h1>Ваши ссылки</h1>
+        <div class="register">
+            {% for message in get_flashed_messages() %}
+            <p>Ошибка: {{message}}</p>
+            {% endfor %}
+        </div>
+        <table id="linksTable">
+            <tr>
+                <td>Ссылка</td>
+                <td>Псевдоним</td>
+                <td></td>
+                <td>Тип ссылки</td>
+                <td></td>
+            </tr>
+            {% for link in userLinks %}
+            <tr>
+                <td>{{link[1]}}</td>
+                <td>{{host_url}}{{link[2]}}</td>
+                <td></td>
+                <td><select name="" class="linkType" id="linkType{{link[0]}}" data-id="{{link[0]}}">
+                    {% for item in linkTypes %}
+                    <option value="{{item[0]}}"  {{'' if item[0] != link[4] else 'selected'}}>{{item[1]}}</option>
+                    {% endfor %}
+                </select></td>
+                <td><button class="delLink" data-id="{{link[0]}}">Удалить</button>
+                <button class="changeLink" data-id="{{link[0]}}">Изменить псевдоним</button></td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    </main>
+
+</body>
+</html>
