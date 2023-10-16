@@ -45,7 +45,7 @@ document.addEventListener('click', function(e){
                                 <tr>
                                 <td>Ссылка</td>
                                 <td>Псевдоним</td>
-                                <td></td>
+                                <td>Количество переходов</td>
                                 <td>Тип ссылки</td>
                                 <td></td>
                                 </tr>`;
@@ -54,7 +54,7 @@ document.addEventListener('click', function(e){
                                     <tr>
                                     <td>${item[1]}</td>
                                     <td>${hostName}${item[2]}</td>
-                                    <td></td>
+                                    <td>${item[5]}</td>
                                     <td><select name="" class="linkType" id="linkType${item[0]}" data-id="${item[0]}">
                                     </select></td>
                                     <td><button class="delLink" data-id="${item[0]}">Удалить</button>
