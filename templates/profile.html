@@ -44,7 +44,7 @@
             <tr>
                 <td>Ссылка</td>
                 <td>Псевдоним</td>
-                <td></td>
+                <td>Количество переходов</td>
                 <td>Тип ссылки</td>
                 <td></td>
             </tr>
@@ -52,7 +52,7 @@
             <tr>
                 <td>{{link[1]}}</td>
                 <td>{{host_url}}{{link[2]}}</td>
-                <td></td>
+                <td>{{link[5]}}</td>
                 <td><select name="" class="linkType" id="linkType{{link[0]}}" data-id="{{link[0]}}">
                     {% for item in linkTypes %}
                     <option value="{{item[0]}}"  {{'' if item[0] != link[4] else 'selected'}}>{{item[1]}}</option>

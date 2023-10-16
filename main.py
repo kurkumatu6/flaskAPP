@@ -44,7 +44,7 @@ def linksChange():
         login = session.get("user")
 
         if login == None:
-            rez = createLink(url, castom_url, 'NULL', linkType)
+            rez = createLink(url, castom_url, "NULL" ,linkType)
             if rez:
                 short_url = request.host_url + castom_url
                 flash(short_url, category="url")
@@ -280,13 +280,18 @@ def changeLinkNickName():
     if request.method == "POST":
         print(request.form)
         castom_url = request.form["nickName"]
-        id = request.form["id"]
-        if (serchLinkForName(castom_url) != None):
-            flash("Введите другой псевдоним", category="error")
+        id = request.form.get("id")
+        random = request.form.get('random')
+        if id != None:
+            if (serchLinkForName(castom_url) != None):
+                flash("Введите другой псевдоним", category="error")
+                return redirect("/profile", code=302)
+            print(changeLinknickname(id, castom_url))
             return redirect("/profile", code=302)
-
-        print(changeLinknickname(id, castom_url))
-        return redirect("/profile", code=302)
+        if random != None:
+            castom_url = generate_short_id(randint(8, 13))
+            print(changeLinknickname(random, castom_url))
+            return redirect("/profile", code=302)
 
 if __name__ == "__main__":
     app.run(debug=True)

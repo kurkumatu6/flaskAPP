@@ -28,3 +28,16 @@
     justify-content: center;
     gap: 10px;
 }
+tr{
+    border: 51px solid black  ;
+}
+td{
+    padding: 5px;
+    border: 1px solid black;
+    max-width: 300px;
+    word-wrap: break-word;
+    text-align: justify;
+}
+table{
+    border: 1px solid black  ;
+}

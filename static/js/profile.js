@@ -109,6 +109,7 @@ document.addEventListener('click', function(e){
                             <label for="nickName">${hostName}</label>
                             <input type="text" name="nickName" value=${nicname}>
                             <button class="changeLinkConfirm" name="id" value='${e.target.dataset.id}'>Подтвердить изменение</button>
+                            <button class="changeLinkConfirm" name="random" value='${e.target.dataset.id}'>Случайный псевдоним</button>
                         </form>
                         </div>
                     </div>
